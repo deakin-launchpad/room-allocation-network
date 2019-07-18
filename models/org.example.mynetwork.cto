@@ -1,0 +1,30 @@
+/**
+ * My Sample User room Allocation Network
+ */
+
+namespace org.example.mynetwork
+
+participant User identified by userId {
+    o String userId
+    o String email
+    --> Room ownedRoom
+}
+
+asset Room identified by roomId {
+    o String roomId
+    o String name
+    o Boolean available
+    o DateTime startDate optional
+    o DateTime endDate optional
+    --> User assignedTo optional
+}
+transaction AssignRoom {
+  	o DateTime startDate
+    o DateTime endDate
+    --> User user
+    --> Room room
+}
+
+transaction DeAllocateRoom {
+    --> Room room
+}
