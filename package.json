@@ -3,7 +3,7 @@
         "composer": "^0.20.9"
     },
     "name": "seamless",
-    "version": "0.0.1",
+    "version": "0.0.7",
     "description": "Apache-2.0",
     "scripts": {
         "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/tutorial-network.bna",

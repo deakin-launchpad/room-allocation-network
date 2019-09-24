@@ -4,25 +4,40 @@
 
 namespace org.example.mynetwork
 
-participant User identified by userId {
-    o String userId
-    o String email
-    --> Room ownedRoom
+participant User identified by id {
+  o String id
+  o String emailId
 }
 
-asset Room identified by roomId {
-    o String roomId
-    o String name
-    o Boolean available
-    o DateTime startDate optional
-    o DateTime endDate optional
-    --> User assignedTo optional
+participant Owner extends User {
 }
-transaction AssignRoom {
-  	o DateTime startDate
-    o DateTime endDate
-    --> User user
+
+// Added seperate participant for Worker
+participant Worker extends User {
+}
+
+asset Room identified by id {
+    o String id
+    o String name
+    --> Owner owner
+    o String[] bookings optional
+}
+
+asset Booking identified by id {
+  o String id
+  --> Worker bookedFor
+  o DateTime bookedStartDate
+  o Integer bookedDurationInHours
+  o String status
+}
+
+transaction BookRoom {
     --> Room room
+    --> Worker worker
+    o String bookingId
+  	o DateTime startDate
+    o Integer durationInHours
+    o String status
 }
 
 transaction DeAllocateRoom {
